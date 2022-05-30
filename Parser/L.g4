@@ -4,20 +4,29 @@ grammar L;
 start : statement* EOF
       ;
 
-statement :  WHILE LPARENTHESIS relationExpression RPARENTHESIS LBRACE statement RBRACE EOL?
-    | ifStatement EOL?
-    | assignment EOL?
-    | expression EOL?;
+statement : whileStatement EOL*
+    | ifStatement EOL*
+    | assignment EOL*
+    | bracesBlockStatement EOL*
+    | functionSpecifier EOL*;
 
-ifStatement : IF LPARENTHESIS relationExpression RPARENTHESIS THEN LBRACE statement RBRACE;
+whileStatement : WHILE LPARENTHESIS relationExpression RPARENTHESIS statement*;
+
+ifStatement : IF LPARENTHESIS relationExpression RPARENTHESIS statement
+ | IF LPARENTHESIS relationExpression RPARENTHESIS statement ELSE statement*;
+
+bracesBlockStatement : LBRACE statement* statement RBRACE;
+
+functionSpecifier : NAME LPARENTHESIS (NAME COMMA | NAME)* RPARENTHESIS bracesBlockStatement;
 
 assignment : NAME EQ expression;
 
-expression : multDivExpression
+expression : (powerExpression
+    | multDivExpression
     | addExpression
     | logicalAndExpression
     | logicalOrExpression
-    | relationExpression;
+    | relationExpression) SEMICOLON;
 
 baseExpression : LPARENTHESIS expression RPARENTHESIS
     | NAME
@@ -27,9 +36,11 @@ baseExpression : LPARENTHESIS expression RPARENTHESIS
 unaryExpression : '-' baseExpression
     | '!' logicalOrExpression;
 
-multDivExpression : baseExpression ((MULT | DIV) baseExpression)*;
+powerExpression : baseExpression POW powerExpression | baseExpression;
 
-addExpression : multDivExpression ((PLUS | MINUS) multDivExpression)*;
+multDivExpression : multDivExpression (MULT | DIV) powerExpression | powerExpression;
+
+addExpression : addExpression (PLUS | MINUS) multDivExpression | multDivExpression;
 
 relationExpression : addExpression NOTEQUALS addExpression
     | addExpression EQUALS addExpression
@@ -38,20 +49,24 @@ relationExpression : addExpression NOTEQUALS addExpression
     | addExpression GT  addExpression
     | addExpression GE addExpression;
 
-logicalAndExpression : baseExpression ('&&' baseExpression)*;
-logicalOrExpression : logicalAndExpression ('||' logicalAndExpression)*;
+logicalAndExpression : logicalAndExpression AND baseExpression | baseExpression;
+logicalOrExpression : logicalOrExpression OR logicalAndExpression | logicalAndExpression;
 
 // lexer rules
 WHILE : 'while';
 IF : 'if';
-THEN : 'then';
+ELSE : 'else';
+
+SKIP_OP : 'skip';
 
 EQ : '=';
 PLUS : '+';
-POW : '^';
 MINUS : '-';
+POW : '^';
 MULT : '*';
 DIV : '/';
+AND : '&&';
+OR : '||';
 LPARENTHESIS : '(';
 RPARENTHESIS : ')';
 LBRACE : '{';
@@ -62,6 +77,8 @@ LE : '<=';
 GE : '>=';
 EQUALS : '==';
 NOTEQUALS : '/=';
+COMMA : ',';
+SEMICOLON : ';';
 
 NAME : LETTER (LETTER | NUMBER | UNDERLINE)*;
 
@@ -72,14 +89,14 @@ DigitLiteral : IntegerLiteral
     | FloatLiteral
     | BinLiteral;
 
-IntegerLiteral : NONZERONUM NUMBER*;
-FloatLiteral : NUMBER * DOT NUMBER*;
+IntegerLiteral : NUMBER+;
+FloatLiteral : NUMBER + DOT NUMBER*;
 BinLiteral : BIN BIN_NUM*;
 
 NONZERONUM : [1-9];
 NUMBER : [0-9];
 DOT : '.';
-EOL : ('\n');
+EOL : ( '\r' '\n'| '\n');
 BIN : '0b';
 BIN_NUM : [0,1];
 
