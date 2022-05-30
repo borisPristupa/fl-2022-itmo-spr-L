@@ -1,41 +1,91 @@
-# fl-2022-itmo-spr-L
+## Язык L
 
-![Build](https://github.com/borisPristupa/fl-2022-itmo-spr-L/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+### Задание: 
+- [Абстрактный синтаксис языка L](https://github.com/kajigor/fl-2022-itmo-spr/blob/proj/lang/L.md)
+- [Создание конкретного синтаксиса](https://github.com/kajigor/fl-2022-itmo-spr/blob/proj/task/ConcreteSyntax.md)
+- [Синтаксический анализатор](https://github.com/kajigor/fl-2022-itmo-spr/blob/proj/task/Parser.md)
+- [Поддержка в среде разработки](https://github.com/kajigor/fl-2022-itmo-spr/blob/proj/task/IdeSupport.md)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+### Конкретный синтаксис языка L
+Пробелы и переносы строк не значащие. Комментарии начинаются с # и идут до конца строки.
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+Файл состоит из определений функций и определения функции main (main должен обязательно быть определён).
+Определение функции всегда топ-левельное, то есть никогда не внутри другой функции. Выглядит так:
+<ИМЯ_ФУНКЦИИ>(<СПИСОК_ПАРАМЕТРОВ>) { <СПИСОК_СТЕЙТМЕНТОВ> }
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+Параметры разделяются запятой (за последним параметром запятая не ставится), стейтменты разделяются точкой с запятой (за последним стейтментом не ставится). main не имеет параметров.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+Стейтмента, который бы объявлял переменную, нет: вместо него сразу присваивание, как в питоне. Имена функций, их параметры и переменные именуются по одной и той же схеме: маленькие и большие латинские буквы, подчёрки, и цифры (имена не начинаются с цифр).
 
-## Installation
+Строковые литералы: в двойных кавычках, без переносов строк внутри, внутри разрешены \n \r \t \\ \".
+Десятичные числа -- любая непустая последовательность десятичных цифр. Двоичные числа начинаются с 0b, затем непустая последовательность нулей и единиц. Ограничений по длине нет.
 
-- Using IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "fl-2022-itmo-spr-L"</kbd> >
-  <kbd>Install Plugin</kbd>
-  
-- Manually:
+Стейтмент: 
+- skip
+- <УСЛОВНЫЙ_ОПЕРАТОР>
+- <ЦИКЛ>
+- <ВЫЗОВ_ФУНКЦИИ>
+- <ПРИСВАИВАНИЕ>
+- { <СПИСОК_СТЕЙТМЕНТОВ> }
 
-  Download the [latest release](https://github.com/borisPristupa/fl-2022-itmo-spr-L/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+Условный оператор: 
+- if (<ВЫРАЖЕНИЕ>) <СТЕЙТМЕНТ>
+- if (<ВЫРАЖЕНИЕ>) <СТЕЙТМЕНТ> else <СТЕЙТМЕНТ>
+
+Цикл: 
+- while (<ВЫРАЖЕНИЕ>) <СТЕЙТМЕНТ>
+
+Вызов функции: 
+- <ИМЯ_ФУНКЦИИ>(<СПИСОК_ВЫРАЖЕНИЙ>)
+
+Выражения разделяются запятой, за последним выражением запятая не ставится. main вызывать можно
+
+Присваивание: 
+- <ИМЯ_ПЕРЕМЕННОЙ> = <ВЫРАЖЕНИЕ>
+
+Выражение: 
+- (<ВЫРАЖЕНИЕ>)
+- <ВЫРАЖЕНИЕ> <БИНАРНЫЙ_ОПЕРАТОР> <ВЫРАЖЕНИЕ>
+- <УНАРНЫЙ_ОПЕРАТОР> <ВЫРАЖЕНИЕ>
+- <ВЫЗОВ_ФУНКЦИИ>
+- <ИМЯ_ПЕРЕМЕННОЙ>
+- <ИМЯ_ФУНКЦИИ>
 
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+Причём main тоже может быть выражением (как частный случай имени функции)
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+Пример кода:
+```
+my_fun1() {
+  print(x) # комментарий
+}
+
+my_fun2(x, y) {
+  a = fn(fn(x), fn, main);
+  if (x) return(x + y - "Hello") # return не является ключевым словом, считаем что это какая-то функция из stdlib
+  else return(y+1);
+  skip
+}
+
+main() {
+  x = 0b1010;
+  while (x) {
+    my_fun1();
+    someVar1 = my_fun2(x, x^2)
+  };
+  my_fun3()
+}
+
+my_fun3() {
+  x = 1 + 2 * 3 / 4 ^ 5 || 6 && 7 || 8 && ! 9 == 10;
+  y = (1 + ((2 * 3) / (4 ^ 5))) || ((6 && 7) || (8 && (! (9 == 10))))
+}
+```
+
+### Синтаксический анализатор
+В ветке [parser-tool](https://github.com/borisPristupa/fl-2022-itmo-spr-L-IDE/tree/parser-tool)
+
+### Поддержка в IntelliJ IDEA
+В ветке [ide-support](https://github.com/borisPristupa/fl-2022-itmo-spr-L-IDE/tree/ide-support)
+
+Запускать можно по ./gradlew :runIde
