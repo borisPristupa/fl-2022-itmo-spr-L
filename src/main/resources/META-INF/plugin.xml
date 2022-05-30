@@ -22,7 +22,13 @@
                 implementation="com.github.borispristupa.fl2022itmosprl.LColorSettingsPage"/>
 
         <lang.parserDefinition
-                language="L"
-                implementationClass="com.github.borispristupa.fl2022itmosprl.lang.LParserDefinition"/>
+            language="L"
+            implementationClass="com.github.borispristupa.fl2022itmosprl.lang.LParserDefinition"/>
+
+        <lang.refactoringSupport
+            language="L"
+            implementationClass="com.github.borispristupa.fl2022itmosprl.LRefactoringSupportProvider"/>
+
+        <enterHandlerDelegate implementation="com.github.borispristupa.fl2022itmosprl.LSemicolonEnterHandler"/>
     </extensions>
 </idea-plugin>
