@@ -20,5 +20,9 @@
 
         <colorSettingsPage
                 implementation="com.github.borispristupa.fl2022itmosprl.LColorSettingsPage"/>
+
+        <lang.parserDefinition
+                language="L"
+                implementationClass="com.github.borispristupa.fl2022itmosprl.lang.LParserDefinition"/>
     </extensions>
 </idea-plugin>
