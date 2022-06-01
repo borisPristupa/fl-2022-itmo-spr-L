@@ -3,6 +3,10 @@
 
 ## Парсер языка L при помощи ANTLR:
 
+<span style="color:blue">*SUCCESS*</span>.
+
+# Success
+
 ```
 my_func_test(arg1, arg2) 
 {
