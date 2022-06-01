@@ -3,7 +3,7 @@
 
 ## Парсер языка L при помощи ANTLR:
 
-<span style="color:blue">*SUCCESS*</span>.
+<span style="color:blue">some *This is Blue italic.* text</span>
 
 # Success
 
