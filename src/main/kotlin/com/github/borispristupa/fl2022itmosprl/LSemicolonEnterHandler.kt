@@ -37,6 +37,7 @@ class LSemicolonEnterHandler: EnterHandlerDelegateAdapter() {
         val lastNonWsOffset = CharArrayUtil.shiftBackward(document.charsSequence, offset, " \t\n")
         if (DocumentUtil.isLineEmpty(document, line)
             || !CharArrayUtil.isEmptyOrSpaces(document.charsSequence, offset, lineEnd)
+            || lastNonWsOffset !in document.charsSequence.indices
             || document.charsSequence[lastNonWsOffset] == ';') {
             return EnterHandlerDelegate.Result.Continue
         }
