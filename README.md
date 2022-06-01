@@ -3,13 +3,10 @@
 
 ## Парсер языка L при помощи ANTLR:
 ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
++ Successfully parsed
 ```
 
+Success 1
 ```
 my_func_test(arg1, arg2) 
 {
@@ -17,9 +14,32 @@ if (!x)
 a =2
 else {
 x = 2;
-a = 0b020;
+a = 0b010;
 var_123 = 0
 };
-skip};
-var = 2
+skip}
+
+main () {}
+```
+Success 2
+```
+main() {
+  print # 
+  int = 2;
+  a = 2.0;
+  b = 0b101010;
+  d 
+  =
+  1 + 2 + 
+  3 + 4 * 5 
+  ^
+  2;
+  
+  x = (a + 2) * d 
+}
+```
+
+
+```diff
+- Didn't parse
 ```
