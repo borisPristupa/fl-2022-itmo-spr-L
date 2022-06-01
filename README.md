@@ -2,10 +2,13 @@
 Поддержка языка L в IDEA (https://github.com/kajigor/fl-2022-itmo-spr/blob/proj/lang/L.md)
 
 ## Парсер языка L при помощи ANTLR:
-
-<span style="color:blue">some *This is Blue italic.* text</span>
-
-# Success
+```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
+```
 
 ```
 my_func_test(arg1, arg2) 
