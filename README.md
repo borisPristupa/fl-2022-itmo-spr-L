@@ -3,7 +3,8 @@
 
 ## Парсер языка L при помощи ANTLR:
 
-```my_func_test(arg1, arg2) 
+```
+my_func_test(arg1, arg2) 
 {
 if (!x) 
 a =2
