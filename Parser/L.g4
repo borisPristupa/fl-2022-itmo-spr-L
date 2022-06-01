@@ -20,8 +20,8 @@ functionSpecifier  : NAME LPARENTHESIS (NAME COMMA | NAME)* RPARENTHESIS LBRACE 
 
 whileStatement : WHILE LPARENTHESIS relationExpression RPARENTHESIS statement;
 
-ifStatement : IF LPARENTHESIS relationExpression RPARENTHESIS statement
- | IF LPARENTHESIS relationExpression RPARENTHESIS statement ELSE  statement;
+ifStatement : IF LPARENTHESIS relationExpression RPARENTHESIS statement+
+ | IF LPARENTHESIS relationExpression RPARENTHESIS statement+ ELSE  statement+;
 
 bracesBlockStatement : LBRACE statement? RBRACE;
 
