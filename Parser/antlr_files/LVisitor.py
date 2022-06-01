@@ -19,6 +19,21 @@ class LVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LParser#funcInnerStatement.
+    def visitFuncInnerStatement(self, ctx:LParser.FuncInnerStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LParser#entryPoint.
+    def visitEntryPoint(self, ctx:LParser.EntryPointContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LParser#functionSpecifier.
+    def visitFunctionSpecifier(self, ctx:LParser.FunctionSpecifierContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LParser#whileStatement.
     def visitWhileStatement(self, ctx:LParser.WhileStatementContext):
         return self.visitChildren(ctx)
@@ -34,13 +49,28 @@ class LVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LParser#functionSpecifier.
-    def visitFunctionSpecifier(self, ctx:LParser.FunctionSpecifierContext):
+    # Visit a parse tree produced by LParser#skipStatement.
+    def visitSkipStatement(self, ctx:LParser.SkipStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LParser#functionInvokation.
+    def visitFunctionInvokation(self, ctx:LParser.FunctionInvokationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LParser#functionArgs.
+    def visitFunctionArgs(self, ctx:LParser.FunctionArgsContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by LParser#assignment.
     def visitAssignment(self, ctx:LParser.AssignmentContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LParser#arithmeticExpression.
+    def visitArithmeticExpression(self, ctx:LParser.ArithmeticExpressionContext):
         return self.visitChildren(ctx)
 
 

@@ -26,6 +26,33 @@ class LListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LParser#funcInnerStatement.
+    def enterFuncInnerStatement(self, ctx:LParser.FuncInnerStatementContext):
+        pass
+
+    # Exit a parse tree produced by LParser#funcInnerStatement.
+    def exitFuncInnerStatement(self, ctx:LParser.FuncInnerStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by LParser#entryPoint.
+    def enterEntryPoint(self, ctx:LParser.EntryPointContext):
+        pass
+
+    # Exit a parse tree produced by LParser#entryPoint.
+    def exitEntryPoint(self, ctx:LParser.EntryPointContext):
+        pass
+
+
+    # Enter a parse tree produced by LParser#functionSpecifier.
+    def enterFunctionSpecifier(self, ctx:LParser.FunctionSpecifierContext):
+        pass
+
+    # Exit a parse tree produced by LParser#functionSpecifier.
+    def exitFunctionSpecifier(self, ctx:LParser.FunctionSpecifierContext):
+        pass
+
+
     # Enter a parse tree produced by LParser#whileStatement.
     def enterWhileStatement(self, ctx:LParser.WhileStatementContext):
         pass
@@ -53,12 +80,30 @@ class LListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LParser#functionSpecifier.
-    def enterFunctionSpecifier(self, ctx:LParser.FunctionSpecifierContext):
+    # Enter a parse tree produced by LParser#skipStatement.
+    def enterSkipStatement(self, ctx:LParser.SkipStatementContext):
         pass
 
-    # Exit a parse tree produced by LParser#functionSpecifier.
-    def exitFunctionSpecifier(self, ctx:LParser.FunctionSpecifierContext):
+    # Exit a parse tree produced by LParser#skipStatement.
+    def exitSkipStatement(self, ctx:LParser.SkipStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by LParser#functionInvokation.
+    def enterFunctionInvokation(self, ctx:LParser.FunctionInvokationContext):
+        pass
+
+    # Exit a parse tree produced by LParser#functionInvokation.
+    def exitFunctionInvokation(self, ctx:LParser.FunctionInvokationContext):
+        pass
+
+
+    # Enter a parse tree produced by LParser#functionArgs.
+    def enterFunctionArgs(self, ctx:LParser.FunctionArgsContext):
+        pass
+
+    # Exit a parse tree produced by LParser#functionArgs.
+    def exitFunctionArgs(self, ctx:LParser.FunctionArgsContext):
         pass
 
 
@@ -68,6 +113,15 @@ class LListener(ParseTreeListener):
 
     # Exit a parse tree produced by LParser#assignment.
     def exitAssignment(self, ctx:LParser.AssignmentContext):
+        pass
+
+
+    # Enter a parse tree produced by LParser#arithmeticExpression.
+    def enterArithmeticExpression(self, ctx:LParser.ArithmeticExpressionContext):
+        pass
+
+    # Exit a parse tree produced by LParser#arithmeticExpression.
+    def exitArithmeticExpression(self, ctx:LParser.ArithmeticExpressionContext):
         pass
 
 

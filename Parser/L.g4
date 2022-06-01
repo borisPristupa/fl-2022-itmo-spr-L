@@ -1,40 +1,54 @@
 grammar L;
 
 // parser rules
-start : statement* EOF
-      ;
+start : functionSpecifier* entryPoint functionSpecifier* EOF;
 
-statement : whileStatement EOL*
-    | ifStatement EOL*
-    | assignment EOL*
-    | bracesBlockStatement EOL*
-    | functionSpecifier EOL*;
+statement : funcInnerStatement (SEMICOLON funcInnerStatement)*;
 
-whileStatement : WHILE LPARENTHESIS relationExpression RPARENTHESIS statement*;
+funcInnerStatement : whileStatement
+    | ifStatement
+    | functionInvokation
+    | assignment
+    | bracesBlockStatement
+    | skipStatement;
+
+entryPoint : MAIN LPARENTHESIS  RPARENTHESIS LBRACE (funcInnerStatement
+(SEMICOLON funcInnerStatement)*)? RBRACE;
+
+functionSpecifier  : NAME LPARENTHESIS (NAME COMMA | NAME)* RPARENTHESIS LBRACE (funcInnerStatement
+(SEMICOLON funcInnerStatement)*)? RBRACE;
+
+whileStatement : WHILE LPARENTHESIS relationExpression RPARENTHESIS statement;
 
 ifStatement : IF LPARENTHESIS relationExpression RPARENTHESIS statement
- | IF LPARENTHESIS relationExpression RPARENTHESIS statement ELSE statement*;
+ | IF LPARENTHESIS relationExpression RPARENTHESIS statement ELSE  statement;
 
-bracesBlockStatement : LBRACE statement* statement RBRACE;
+bracesBlockStatement : LBRACE statement? RBRACE;
 
-functionSpecifier : NAME LPARENTHESIS (NAME COMMA | NAME)* RPARENTHESIS bracesBlockStatement;
+skipStatement : SKIP_OP;
 
-assignment : NAME EQ expression;
+functionInvokation : NAME LPARENTHESIS  (functionArgs COMMA | functionArgs)* RPARENTHESIS;
 
-expression : (powerExpression
+functionArgs : MAIN | arithmeticExpression | baseExpression | functionInvokation;
+
+assignment : NAME EQ (expression | functionInvokation);
+
+arithmeticExpression : powerExpression
     | multDivExpression
-    | addExpression
+    | addExpression;
+
+expression : arithmeticExpression
     | logicalAndExpression
     | logicalOrExpression
-    | relationExpression) SEMICOLON;
+    | relationExpression;
 
 baseExpression : LPARENTHESIS expression RPARENTHESIS
     | NAME
     | unaryExpression
-    | DigitLiteral;
+    | DigitLiteral
+    | STRING;
 
-unaryExpression : '-' baseExpression
-    | '!' logicalOrExpression;
+unaryExpression : '-' baseExpression;
 
 powerExpression : baseExpression POW powerExpression | baseExpression;
 
@@ -45,9 +59,11 @@ addExpression : addExpression (PLUS | MINUS) multDivExpression | multDivExpressi
 relationExpression : addExpression NOTEQUALS addExpression
     | addExpression EQUALS addExpression
     | addExpression LE addExpression
-    | addExpression LT  addExpression
-    | addExpression GT  addExpression
-    | addExpression GE addExpression;
+    | addExpression LT addExpression
+    | addExpression GT addExpression
+    | addExpression GE addExpression
+    | NOT logicalOrExpression
+    | logicalOrExpression;
 
 logicalAndExpression : logicalAndExpression AND baseExpression | baseExpression;
 logicalOrExpression : logicalOrExpression OR logicalAndExpression | logicalAndExpression;
@@ -67,22 +83,26 @@ MULT : '*';
 DIV : '/';
 AND : '&&';
 OR : '||';
-LPARENTHESIS : '(';
-RPARENTHESIS : ')';
-LBRACE : '{';
-RBRACE : '}';
-LT : '<';
-GT : '>';
+LPARENTHESIS :  '(' ;
+RPARENTHESIS : ')' ;
+LBRACE :  '{' ;
+RBRACE :  '}' ;
+LT : '<' ;
+GT : '>' ;
 LE : '<=';
 GE : '>=';
 EQUALS : '==';
+NOT : '!';
 NOTEQUALS : '/=';
 COMMA : ',';
 SEMICOLON : ';';
-
+MAIN : 'main';
 NAME : LETTER (LETTER | NUMBER | UNDERLINE)*;
+COMMENT_SYMBOL : '#';
+RETURN : 'return';
 
 LETTER : [a-zA-Z];
+STRING : '"' (LETTER | NUMBER | UNDERLINE)* '"';
 UNDERLINE : '_';
 
 DigitLiteral : IntegerLiteral
@@ -90,22 +110,24 @@ DigitLiteral : IntegerLiteral
     | BinLiteral;
 
 IntegerLiteral : NUMBER+;
-FloatLiteral : NUMBER + DOT NUMBER*;
+FloatLiteral : NUMBER+ DOT NUMBER*;
 BinLiteral : BIN BIN_NUM*;
 
 NONZERONUM : [1-9];
 NUMBER : [0-9];
 DOT : '.';
-EOL : ( '\r' '\n'| '\n');
 BIN : '0b';
-BIN_NUM : [0,1];
+BIN_NUM : [0-1];
 
 Whitespace
-    :   [ \t]+
-        -> skip
-    ;
+    :
+[ \t]+
+    -> skip;
 
-LineComment
-    :   '#' ~[\n]*
-        -> skip
-    ;
+EOL :
+( '\r' '\n'| '\n')
+    -> skip;
+
+COMMENT :
+~[\n]* '#' ~[\n]*
+    -> skip;
