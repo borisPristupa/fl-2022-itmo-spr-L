@@ -36,7 +36,7 @@ class LParser : PsiParser {
                         parseFnDef()
                         fns += fn
                     }
-                    else -> advance()
+                    else -> errorAdvance("identifier")
                 }
             }
 
