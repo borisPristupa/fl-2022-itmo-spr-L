@@ -29,6 +29,10 @@
             language="L"
             implementationClass="com.github.borispristupa.fl2022itmosprl.LRefactoringSupportProvider"/>
 
-        <enterHandlerDelegate implementation="com.github.borispristupa.fl2022itmosprl.LSemicolonEnterHandler"/>
+        <enterHandlerDelegate
+                implementation="com.github.borispristupa.fl2022itmosprl.LSemicolonEnterHandler"/>
+        <editorActionHandler
+                action="EditorStartNewLine"
+                implementationClass="com.github.borispristupa.fl2022itmosprl.LShiftEnterHandler"/>
     </extensions>
 </idea-plugin>
