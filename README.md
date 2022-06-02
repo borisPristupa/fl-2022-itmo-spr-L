@@ -26,7 +26,7 @@ PYTHONPATH='.' python3 -m unittest
 
 При возникновении ошибки ```Exception: Could not deserialize ATN with version  (expected 4).```, попробуйте запустить из PyCharm установив ```requirements.txt``` или изменить версию ANTLR.
 
-Примеры тестов, которые не вызвали ошибку при парсинге:
+Пример тестового файла:
 
 ```
 if_fn() {
@@ -52,53 +52,6 @@ main() {
 }
 ```
 
-```
-f(){}g(){skip}h(){skip;skip;skip}
-
-x(x) {}
-y(x, y) {}
-z(x, y, z) {}
-
-ll
-(
-)
-{
-}
-
-ll_1
-(
-ll
-)
-{
-ll
-(
-)
-}
-
-main() {
-}
-
-func_while(a) {
-    ll();
-    skip;
-    # commment
-    a = 2.4555;
-    while (a > 0)
-    {a = a - 1; b = a * 2 ^ 4}
-}
-
-func_if(a) {
-    a = 0b1101;
-    if (!a && b)
-    c = 2
-    else
-    a = 2
-    if (a)
-    a = 2;
-    b = "String"
-    # comment line
-}
-```
 Чтобы скомпилировать ANTLR из директории Parser используйте команду:
 
 ```
