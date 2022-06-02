@@ -1,0 +1,9 @@
+# a comment here
+main( ####
+#and here #
+) # and here
+{
+  x #
+  = #
+  1
+}
