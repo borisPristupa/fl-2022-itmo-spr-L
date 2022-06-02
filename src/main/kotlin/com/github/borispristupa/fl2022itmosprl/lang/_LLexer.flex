@@ -58,8 +58,8 @@ ID = [a-zA-Z_] {ALPHA_NUM}*
     "*"              { return LTokenType.MULT.INSTANCE; }
     "-"              { return LTokenType.MINUS.INSTANCE; }
     "+"              { return LTokenType.PLUS.INSTANCE; }
-    ">="             { return LTokenType.GT.INSTANCE; }
-    ">"              { return LTokenType.GEQ.INSTANCE; }
+    ">="             { return LTokenType.GEQ.INSTANCE; }
+    ">"              { return LTokenType.GT.INSTANCE; }
     "<="             { return LTokenType.LEQ.INSTANCE; }
     "<"              { return LTokenType.LT.INSTANCE; }
     "/="             { return LTokenType.NEQ.INSTANCE; }
