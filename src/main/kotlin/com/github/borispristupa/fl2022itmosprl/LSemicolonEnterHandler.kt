@@ -56,14 +56,6 @@ class LSemicolonEnterHandler: EnterHandlerDelegateAdapter() {
             return EnterHandlerDelegate.Result.Continue
         }
 
-        val statementList = statement.parents(withSelf = false)
-            .find { it.elementType is LElementType.STATEMENT_LIST }
-            ?: return EnterHandlerDelegate.Result.Continue
-
-        if (statementList.children.count { it.elementType in LElementType.STATEMENTS } == 1) {
-            return EnterHandlerDelegate.Result.Continue
-        }
-
         document.insertString(lastNonWsOffset + 1, ";")
         caretOffset.set(offset + 1)
         return EnterHandlerDelegate.Result.Continue
