@@ -99,5 +99,10 @@ func_if(a) {
     # comment line
 }
 ```
+Чтобы скомпилировать ANTLR из директории Parser используйте команду:
+
+```
+antlr4 -Dlanguage=Python3 L.g4 -visitor -o antlr_files
+```
 
 
