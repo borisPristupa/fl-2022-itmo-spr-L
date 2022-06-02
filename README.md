@@ -88,4 +88,5 @@ my_fun3() {
 ### Поддержка в IntelliJ IDEA
 В ветке [ide-support](https://github.com/borisPristupa/fl-2022-itmo-spr-L-IDE/tree/ide-support)
 
-Запускать можно по ./gradlew :runIde
+
+Все инструкции по запуску есть в соответствующих ветках
