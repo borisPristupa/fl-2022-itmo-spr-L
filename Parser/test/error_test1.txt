@@ -1,0 +1,8 @@
+func_while(a) {
+    ll();
+    skip;
+    # commment
+    a = 2.4555;
+    while (a > 0)
+    {a = a - 1; b = a * 2 ^ 4}
+}

@@ -1,0 +1,47 @@
+f(){}g(){skip}h(){skip;skip;skip}
+
+x(x) {}
+y(x, y) {}
+z(x, y, z) {}
+
+ll
+(
+)
+{
+}
+
+ll_1
+(
+ll
+)
+{
+ll
+(
+)
+}
+
+main() {
+}
+
+func_while(a) {
+    ll();
+    skip;
+    # commment
+    a = 2.4555;
+    while (a > 0)
+    {a = a - 1; b = a * 2 ^ 4}
+}
+
+func_if(a) {
+    a = 0b1101;
+    if (!a && b)
+    c = 2
+    else
+    a = 2
+    if (a)
+    a = 2;
+    b = "String"
+    # comment line
+}
+
+

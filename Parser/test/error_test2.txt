@@ -1,0 +1,14 @@
+main() {
+    x = a + b * c * d + e && f || h && i || j + k - l == m + ! n == o;
+    y = x(a, b + c, d(x(y + z) + w));
+
+    x = (((((a))))) + 1 * c * 0b101 + e && "123" || h && i || (j + (k - (l)()) == m) + ! n == ---o;
+}
+
+my_fun() {}
+
+this_IS_another_func123 () {
+while (x
+> 1)
+b = 2.525125
+}

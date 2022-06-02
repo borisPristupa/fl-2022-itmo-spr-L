@@ -1,0 +1,7 @@
+main () {
+    if = 1
+}
+
+my_fun (arg1) {
+while (x < y)
+}

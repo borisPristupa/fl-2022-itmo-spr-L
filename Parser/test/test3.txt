@@ -1,0 +1,21 @@
+if_fn() {
+  if (iff) x = then else x = fi;
+  f(main);
+  if (x) if (y) if (z) skip else skip else skip
+}
+
+while_fn() {
+  while (x) while (y) while (z) skip
+}
+
+compound_fn() {
+   {}; {}; {{{{{}}}}}
+}
+
+main() {
+  x(x(x(x(x(x(x(x(x()))))))));
+  skip;
+  x = ---------------------------x;
+  x = 1 + # comment
+  x
+}

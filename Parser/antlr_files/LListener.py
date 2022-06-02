@@ -179,6 +179,15 @@ class LListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LParser#compoundRelationExpr.
+    def enterCompoundRelationExpr(self, ctx:LParser.CompoundRelationExprContext):
+        pass
+
+    # Exit a parse tree produced by LParser#compoundRelationExpr.
+    def exitCompoundRelationExpr(self, ctx:LParser.CompoundRelationExprContext):
+        pass
+
+
     # Enter a parse tree produced by LParser#relationExpression.
     def enterRelationExpression(self, ctx:LParser.RelationExpressionContext):
         pass

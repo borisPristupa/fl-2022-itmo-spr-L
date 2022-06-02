@@ -104,6 +104,11 @@ class LVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LParser#compoundRelationExpr.
+    def visitCompoundRelationExpr(self, ctx:LParser.CompoundRelationExprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LParser#relationExpression.
     def visitRelationExpression(self, ctx:LParser.RelationExpressionContext):
         return self.visitChildren(ctx)

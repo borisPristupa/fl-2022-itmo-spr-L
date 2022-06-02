@@ -7,8 +7,8 @@ statement : funcInnerStatement (SEMICOLON funcInnerStatement)*;
 
 funcInnerStatement : whileStatement
     | ifStatement
-    | functionInvokation
     | assignment
+    | functionInvokation
     | bracesBlockStatement
     | skipStatement;
 
@@ -42,28 +42,33 @@ expression : arithmeticExpression
     | logicalOrExpression
     | relationExpression;
 
-baseExpression : LPARENTHESIS expression RPARENTHESIS
+baseExpression : LPARENTHESIS expression* RPARENTHESIS
     | NAME
     | unaryExpression
     | DigitLiteral
-    | STRING;
+    | STRING
+    | functionInvokation;
 
 unaryExpression : '-' baseExpression;
 
 powerExpression : baseExpression POW powerExpression | baseExpression;
 
-multDivExpression : multDivExpression (MULT | DIV) powerExpression | powerExpression;
+multDivExpression : multDivExpression (MULT | DIV) (powerExpression | relationExpression) | powerExpression;
 
-addExpression : addExpression (PLUS | MINUS) multDivExpression | multDivExpression;
+addExpression : addExpression (PLUS | MINUS) (multDivExpression | relationExpression) | multDivExpression;
 
-relationExpression : addExpression NOTEQUALS addExpression
-    | addExpression EQUALS addExpression
-    | addExpression LE addExpression
-    | addExpression LT addExpression
-    | addExpression GT addExpression
-    | addExpression GE addExpression
-    | NOT logicalOrExpression
-    | logicalOrExpression;
+compoundRelationExpr : (arithmeticExpression | logicalOrExpression| logicalAndExpression | baseExpression);
+
+relationExpression : compoundRelationExpr NOTEQUALS logicalOrExpression
+    | compoundRelationExpr EQUALS logicalOrExpression
+    | compoundRelationExpr LE relationExpression
+    | compoundRelationExpr LT relationExpression
+    | compoundRelationExpr GT relationExpression
+    | compoundRelationExpr GE relationExpression
+    | NOT relationExpression
+    | compoundRelationExpr
+    | compoundRelationExpr AND relationExpression
+    | compoundRelationExpr OR relationExpression;
 
 logicalAndExpression : logicalAndExpression AND baseExpression | baseExpression;
 logicalOrExpression : logicalOrExpression OR logicalAndExpression | logicalAndExpression;
@@ -129,5 +134,5 @@ EOL :
     -> skip;
 
 COMMENT :
-~[\n]* '#' ~[\n]*
+'#' ~[\n]*
     -> skip;
