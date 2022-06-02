@@ -16,7 +16,7 @@ python3 parser.py -p <file>
 PYTHONPATH='.' python3 parser.py -p <file>
 ```
 
-из директории проекта.
+из директории проекта. Данный скрипт создаст файл в рабочей директории ```<filename_parsed>``` с результатом работы парсера в строковом представлении дерева. 
 
 Для запусков тестов используйте аналогичную команду:
 
@@ -24,7 +24,80 @@ PYTHONPATH='.' python3 parser.py -p <file>
 PYTHONPATH='.' python3 -m unittest
 ``` 
 
-При возникновении ошибки ```Exception: Could not deserialize ATN with version  (expected 4).```, попробуйте запустить из Pycharm установив ```requirements.txt``` или изменить версию ANTLR.
+При возникновении ошибки ```Exception: Could not deserialize ATN with version  (expected 4).```, попробуйте запустить из PyCharm установив ```requirements.txt``` или изменить версию ANTLR.
 
+Примеры тестов, которые не вызвали ошибку при парсинге:
+
+```
+if_fn() {
+  if (iff) x = then else x = fi;
+  f(main);
+  if (x) if (y) if (z) skip else skip else skip
+}
+
+while_fn() {
+  while (x) while (y) while (z) skip
+}
+
+compound_fn() {
+   {}; {}; {{{{{}}}}}
+}
+
+main() {
+  x(x(x(x(x(x(x(x(x()))))))));
+  skip;
+  x = ---------------------------x;
+  x = 1 + # comment
+  x
+}
+```
+
+```
+f(){}g(){skip}h(){skip;skip;skip}
+
+x(x) {}
+y(x, y) {}
+z(x, y, z) {}
+
+ll
+(
+)
+{
+}
+
+ll_1
+(
+ll
+)
+{
+ll
+(
+)
+}
+
+main() {
+}
+
+func_while(a) {
+    ll();
+    skip;
+    # commment
+    a = 2.4555;
+    while (a > 0)
+    {a = a - 1; b = a * 2 ^ 4}
+}
+
+func_if(a) {
+    a = 0b1101;
+    if (!a && b)
+    c = 2
+    else
+    a = 2
+    if (a)
+    a = 2;
+    b = "String"
+    # comment line
+}
+```
 
 
