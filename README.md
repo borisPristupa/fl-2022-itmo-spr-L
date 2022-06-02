@@ -1,5 +1,7 @@
 ## Как запускать
-```./gradlew :runIde```
+```./gradlew :runIde``` для запуска IDE с плагином
+
+```./gradlew :test``` для тестов
 
 ## Что есть
 - Лексер на JFlex
