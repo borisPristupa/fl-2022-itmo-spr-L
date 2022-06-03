@@ -33,18 +33,23 @@ def parse(path):
 
     except FileNotFoundError:
         print(f"File was not found{path}")
+    except Exception as e:
+        print("Error while parsing:\n" + str(e))
 
 
 def print_AST(parser, path):
     tree = parser.start()
     print(Trees.toStringTree(tree, None, parser))
     with open(path + "_parsed", 'w') as f:
-        f.write(Trees.toStringTree(tree, None, parser))
+        try:
+            f.write(Trees.toStringTree(tree, None, parser))
+        except Exception as e:
+            print("Error while printing AST:\n" + str(e))
 
 
 class ANTLRErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise Exception(f"ANTLR parsing error when parsing {line}. "
+        raise Exception(f"ANTLR parsing error when parsing line {line}. "
                         f"Message: {msg}")
 
 
