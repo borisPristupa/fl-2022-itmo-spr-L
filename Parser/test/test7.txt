@@ -1,0 +1,6 @@
+main () {
+  print(1+2, 3*4, "arg",
+  0b100);
+  func();
+  func(func(func(), a * 2))
+}

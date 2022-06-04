@@ -27,7 +27,7 @@ bracesBlockStatement : LBRACE statement? RBRACE;
 
 skipStatement : SKIP_OP;
 
-functionInvokation : NAME LPARENTHESIS  (functionArgs COMMA | functionArgs)* RPARENTHESIS;
+functionInvokation : NAME LPARENTHESIS  ((functionArgs COMMA)* functionArgs)? RPARENTHESIS;
 
 functionArgs : MAIN | arithmeticExpression | baseExpression | functionInvokation;
 
