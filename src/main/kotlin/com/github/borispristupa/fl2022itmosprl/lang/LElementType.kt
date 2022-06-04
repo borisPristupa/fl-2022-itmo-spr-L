@@ -102,6 +102,9 @@ sealed class LElementType(@NonNls debugName: String): IElementType(debugName, LL
     }
 
     companion object {
+        val EXPRESSION = TokenSet.create(
+            REF, DECIMAL, BINARY, STRING, PAREN_EXPRESSION, FUNCTION_CALL_EXPRESSION
+        )
         val STATEMENTS = TokenSet.create(
             STATEMENT_LIST, SKIP_STATEMENT, IF_STATEMENT, WHILE_STATEMENT, ASSIGNMENT_STATEMENT, FUNCTION_CALL_STATEMENT
         )

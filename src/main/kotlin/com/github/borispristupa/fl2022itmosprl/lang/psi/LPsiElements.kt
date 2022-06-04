@@ -1,5 +1,6 @@
 package com.github.borispristupa.fl2022itmosprl.lang.psi
 
+import com.github.borispristupa.fl2022itmosprl.lang.LElementType
 import com.github.borispristupa.fl2022itmosprl.lang.LLanguage
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElementBuilder
@@ -8,8 +9,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.*
 import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.search.SearchScope
-import com.intellij.psi.util.descendantsOfType
-import com.intellij.psi.util.parentOfType
+import com.intellij.psi.util.*
 import com.intellij.refactoring.suggested.startOffset
 
 open class LPsiElement(node: ASTNode): ASTWrapperPsiElement(node)
@@ -97,6 +97,26 @@ class LPsiRef(node: ASTNode): ASTWrapperPsiElement(node), PsiNameIdentifierOwner
             }
 
             override fun getVariants(): Array<Any> {
+                run {
+                    val parentExpr = element.parents(withSelf = false)
+                        .lastOrNull { it.elementType in LElementType.EXPRESSION }
+
+                    val isolatedText = if (parentExpr != null) {
+                        "main() {x = ${parentExpr.text}}"
+                    } else {
+                        val parentStatement = element.parents(withSelf = true)
+                            .first { it.elementType in LElementType.STATEMENTS }
+                        "main() {${parentStatement.text}}"
+                    }
+
+                    if (PsiFileFactory.getInstance(project)
+                            .createFileFromText(LLanguage, isolatedText)
+                            .descendantsOfType<PsiErrorElement>()
+                            .any()) {
+                        return emptyArray()
+                    }
+                }
+
                 val definitions = parentOfType<LFnDef>()!!.descendantsOfType<LParameterDef>() +
                         containingFile.descendantsOfType<LFnDef>()
                 return definitions.map {
