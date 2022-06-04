@@ -15,63 +15,43 @@ funcInnerStatement : whileStatement
 entryPoint : MAIN LPARENTHESIS  RPARENTHESIS LBRACE (funcInnerStatement
 (SEMICOLON funcInnerStatement)*)? RBRACE;
 
-functionSpecifier  : NAME LPARENTHESIS (NAME COMMA | NAME)* RPARENTHESIS LBRACE (funcInnerStatement
+functionSpecifier  : NAME LPARENTHESIS ((NAME COMMA)*  NAME?) RPARENTHESIS LBRACE (funcInnerStatement
 (SEMICOLON funcInnerStatement)*)? RBRACE;
 
-whileStatement : WHILE LPARENTHESIS relationExpression RPARENTHESIS statement;
+whileStatement : WHILE LPARENTHESIS logicExpr RPARENTHESIS statement;
 
-ifStatement : IF LPARENTHESIS relationExpression RPARENTHESIS statement+
- | IF LPARENTHESIS relationExpression RPARENTHESIS statement+ ELSE  statement+;
+ifStatement : IF LPARENTHESIS logicExpr RPARENTHESIS statement+
+ | IF LPARENTHESIS logicExpr RPARENTHESIS statement+ ELSE  statement+;
 
 bracesBlockStatement : LBRACE statement? RBRACE;
 
 skipStatement : SKIP_OP;
 
-functionInvokation : NAME LPARENTHESIS  ((functionArgs COMMA)* functionArgs)? RPARENTHESIS;
+functionInvokation : NAME LPARENTHESIS  (((MAIN | logicExpr) COMMA)* (MAIN | logicExpr))?
+RPARENTHESIS;
 
-functionArgs : MAIN | arithmeticExpression | baseExpression | functionInvokation;
+assignment : NAME EQ logicExpr;
 
-assignment : NAME EQ (expression | functionInvokation);
+arithmeticExpr : <assoc=right> arithmeticExpr POW arithmeticExpr
+      | MINUS arithmeticExpr
+      | arithmeticExpr (MULT | DIV) arithmeticExpr
+      | arithmeticExpr (PLUS | MINUS) arithmeticExpr
+      | baseExpr;
 
-arithmeticExpression : powerExpression
-    | multDivExpression
-    | addExpression;
-
-expression : arithmeticExpression
-    | logicalAndExpression
-    | logicalOrExpression
-    | relationExpression;
-
-baseExpression : LPARENTHESIS expression* RPARENTHESIS
+baseExpr : LPARENTHESIS logicExpr RPARENTHESIS
     | NAME
-    | unaryExpression
+    | '-' baseExpr
     | DigitLiteral
     | STRING
     | functionInvokation;
 
-unaryExpression : '-' baseExpression;
+compare : arithmeticExpr (EQUALS | NOTEQUALS | GE | GT | LE | LT) arithmeticExpr | arithmeticExpr;
 
-powerExpression : baseExpression POW powerExpression | baseExpression;
-
-multDivExpression : multDivExpression (MULT | DIV) (powerExpression | relationExpression) | powerExpression;
-
-addExpression : addExpression (PLUS | MINUS) (multDivExpression | relationExpression) | multDivExpression;
-
-compoundRelationExpr : (arithmeticExpression | logicalOrExpression| logicalAndExpression | baseExpression);
-
-relationExpression : compoundRelationExpr NOTEQUALS logicalOrExpression
-    | compoundRelationExpr EQUALS logicalOrExpression
-    | compoundRelationExpr LE relationExpression
-    | compoundRelationExpr LT relationExpression
-    | compoundRelationExpr GT relationExpression
-    | compoundRelationExpr GE relationExpression
-    | NOT relationExpression
-    | compoundRelationExpr
-    | compoundRelationExpr AND relationExpression
-    | compoundRelationExpr OR relationExpression;
-
-logicalAndExpression : logicalAndExpression AND baseExpression | baseExpression;
-logicalOrExpression : logicalOrExpression OR logicalAndExpression | logicalAndExpression;
+logicExpr : NOT logicExpr
+    | <assoc=right> logicExpr AND logicExpr
+    | <assoc=right> logicExpr OR logicExpr
+    | compare
+    | arithmeticExpr;
 
 // lexer rules
 WHILE : 'while';
@@ -102,13 +82,11 @@ NOTEQUALS : '/=';
 COMMA : ',';
 SEMICOLON : ';';
 MAIN : 'main';
-NAME : LETTER (LETTER | NUMBER | UNDERLINE)*;
-COMMENT_SYMBOL : '#';
+NAME : LETTER (LETTER | NUMBER | '_')*;
 RETURN : 'return';
 
 LETTER : [a-zA-Z];
-STRING : '"' (LETTER | NUMBER | UNDERLINE)* '"';
-UNDERLINE : '_';
+STRING : '"' (LETTER | NUMBER | '_')* '"';
 
 DigitLiteral : IntegerLiteral
     | FloatLiteral

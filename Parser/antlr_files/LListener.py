@@ -98,15 +98,6 @@ class LListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LParser#functionArgs.
-    def enterFunctionArgs(self, ctx:LParser.FunctionArgsContext):
-        pass
-
-    # Exit a parse tree produced by LParser#functionArgs.
-    def exitFunctionArgs(self, ctx:LParser.FunctionArgsContext):
-        pass
-
-
     # Enter a parse tree produced by LParser#assignment.
     def enterAssignment(self, ctx:LParser.AssignmentContext):
         pass
@@ -116,102 +107,39 @@ class LListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LParser#arithmeticExpression.
-    def enterArithmeticExpression(self, ctx:LParser.ArithmeticExpressionContext):
+    # Enter a parse tree produced by LParser#arithmeticExpr.
+    def enterArithmeticExpr(self, ctx:LParser.ArithmeticExprContext):
         pass
 
-    # Exit a parse tree produced by LParser#arithmeticExpression.
-    def exitArithmeticExpression(self, ctx:LParser.ArithmeticExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#expression.
-    def enterExpression(self, ctx:LParser.ExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LParser#expression.
-    def exitExpression(self, ctx:LParser.ExpressionContext):
+    # Exit a parse tree produced by LParser#arithmeticExpr.
+    def exitArithmeticExpr(self, ctx:LParser.ArithmeticExprContext):
         pass
 
 
-    # Enter a parse tree produced by LParser#baseExpression.
-    def enterBaseExpression(self, ctx:LParser.BaseExpressionContext):
+    # Enter a parse tree produced by LParser#baseExpr.
+    def enterBaseExpr(self, ctx:LParser.BaseExprContext):
         pass
 
-    # Exit a parse tree produced by LParser#baseExpression.
-    def exitBaseExpression(self, ctx:LParser.BaseExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#unaryExpression.
-    def enterUnaryExpression(self, ctx:LParser.UnaryExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LParser#unaryExpression.
-    def exitUnaryExpression(self, ctx:LParser.UnaryExpressionContext):
+    # Exit a parse tree produced by LParser#baseExpr.
+    def exitBaseExpr(self, ctx:LParser.BaseExprContext):
         pass
 
 
-    # Enter a parse tree produced by LParser#powerExpression.
-    def enterPowerExpression(self, ctx:LParser.PowerExpressionContext):
+    # Enter a parse tree produced by LParser#compare.
+    def enterCompare(self, ctx:LParser.CompareContext):
         pass
 
-    # Exit a parse tree produced by LParser#powerExpression.
-    def exitPowerExpression(self, ctx:LParser.PowerExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#multDivExpression.
-    def enterMultDivExpression(self, ctx:LParser.MultDivExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LParser#multDivExpression.
-    def exitMultDivExpression(self, ctx:LParser.MultDivExpressionContext):
+    # Exit a parse tree produced by LParser#compare.
+    def exitCompare(self, ctx:LParser.CompareContext):
         pass
 
 
-    # Enter a parse tree produced by LParser#addExpression.
-    def enterAddExpression(self, ctx:LParser.AddExpressionContext):
+    # Enter a parse tree produced by LParser#logicExpr.
+    def enterLogicExpr(self, ctx:LParser.LogicExprContext):
         pass
 
-    # Exit a parse tree produced by LParser#addExpression.
-    def exitAddExpression(self, ctx:LParser.AddExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#compoundRelationExpr.
-    def enterCompoundRelationExpr(self, ctx:LParser.CompoundRelationExprContext):
-        pass
-
-    # Exit a parse tree produced by LParser#compoundRelationExpr.
-    def exitCompoundRelationExpr(self, ctx:LParser.CompoundRelationExprContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#relationExpression.
-    def enterRelationExpression(self, ctx:LParser.RelationExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LParser#relationExpression.
-    def exitRelationExpression(self, ctx:LParser.RelationExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#logicalAndExpression.
-    def enterLogicalAndExpression(self, ctx:LParser.LogicalAndExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LParser#logicalAndExpression.
-    def exitLogicalAndExpression(self, ctx:LParser.LogicalAndExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LParser#logicalOrExpression.
-    def enterLogicalOrExpression(self, ctx:LParser.LogicalOrExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LParser#logicalOrExpression.
-    def exitLogicalOrExpression(self, ctx:LParser.LogicalOrExpressionContext):
+    # Exit a parse tree produced by LParser#logicExpr.
+    def exitLogicExpr(self, ctx:LParser.LogicExprContext):
         pass
 
 

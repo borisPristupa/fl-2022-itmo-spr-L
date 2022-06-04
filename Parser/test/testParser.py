@@ -17,6 +17,8 @@ class TestParser(TestCase):
     def test_operators(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/test2.txt")
         self.assertIsNone(parser.Parser.error_output)
+        parser.Parser.parse(os.path.dirname(__file__) + "/test8.txt")
+        self.assertIsNone(parser.Parser.error_output)
 
     def test_functions(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/test3.txt")
@@ -30,21 +32,34 @@ class TestParser(TestCase):
         parser.Parser.parse(os.path.dirname(__file__) + "/test5.txt")
         self.assertIsNone(parser.Parser.error_output)
 
-    def test_wrong_input(self) -> None:
+
+    def test_wrong_input_no_main(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test1.txt")
         self.assertIsNotNone(parser.Parser.error_output)
+
+    def test_wrong_input_extra_semicolon(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test2.txt")
         self.assertIsNotNone(parser.Parser.error_output)
+
+    def test_wrong_input_bad_operations(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test3.txt")
-        self.assertIsNotNone(parser.Parser.error_output)
-        parser.Parser.parse(os.path.dirname(__file__) + "/error_test4.txt")
         self.assertIsNotNone(parser.Parser.error_output)
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test5.txt")
         self.assertIsNotNone(parser.Parser.error_output)
+
+    def test_wrong_input_extra_main(self) -> None:
+        parser.Parser.parse(os.path.dirname(__file__) + "/error_test4.txt")
+        self.assertIsNotNone(parser.Parser.error_output)
+
+    def test_wrong_input_operations_outside_func(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test6.txt")
         self.assertIsNotNone(parser.Parser.error_output)
+
+    def test_wrong_input_empty(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test7.txt")
         self.assertIsNotNone(parser.Parser.error_output)
+
+    def test_wrong_input_bad_func_args(self) -> None:
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test8.txt")
         self.assertIsNotNone(parser.Parser.error_output)
         parser.Parser.parse(os.path.dirname(__file__) + "/error_test9.txt")

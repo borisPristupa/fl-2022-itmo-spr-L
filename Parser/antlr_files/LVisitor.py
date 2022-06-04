@@ -59,68 +59,28 @@ class LVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LParser#functionArgs.
-    def visitFunctionArgs(self, ctx:LParser.FunctionArgsContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by LParser#assignment.
     def visitAssignment(self, ctx:LParser.AssignmentContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LParser#arithmeticExpression.
-    def visitArithmeticExpression(self, ctx:LParser.ArithmeticExpressionContext):
+    # Visit a parse tree produced by LParser#arithmeticExpr.
+    def visitArithmeticExpr(self, ctx:LParser.ArithmeticExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LParser#expression.
-    def visitExpression(self, ctx:LParser.ExpressionContext):
+    # Visit a parse tree produced by LParser#baseExpr.
+    def visitBaseExpr(self, ctx:LParser.BaseExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LParser#baseExpression.
-    def visitBaseExpression(self, ctx:LParser.BaseExpressionContext):
+    # Visit a parse tree produced by LParser#compare.
+    def visitCompare(self, ctx:LParser.CompareContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by LParser#unaryExpression.
-    def visitUnaryExpression(self, ctx:LParser.UnaryExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#powerExpression.
-    def visitPowerExpression(self, ctx:LParser.PowerExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#multDivExpression.
-    def visitMultDivExpression(self, ctx:LParser.MultDivExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#addExpression.
-    def visitAddExpression(self, ctx:LParser.AddExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#compoundRelationExpr.
-    def visitCompoundRelationExpr(self, ctx:LParser.CompoundRelationExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#relationExpression.
-    def visitRelationExpression(self, ctx:LParser.RelationExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#logicalAndExpression.
-    def visitLogicalAndExpression(self, ctx:LParser.LogicalAndExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LParser#logicalOrExpression.
-    def visitLogicalOrExpression(self, ctx:LParser.LogicalOrExpressionContext):
+    # Visit a parse tree produced by LParser#logicExpr.
+    def visitLogicExpr(self, ctx:LParser.LogicExprContext):
         return self.visitChildren(ctx)
 
 
