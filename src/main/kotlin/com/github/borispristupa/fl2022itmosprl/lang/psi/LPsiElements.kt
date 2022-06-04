@@ -2,6 +2,7 @@ package com.github.borispristupa.fl2022itmosprl.lang.psi
 
 import com.github.borispristupa.fl2022itmosprl.lang.LElementType
 import com.github.borispristupa.fl2022itmosprl.lang.LLanguage
+import com.intellij.codeInsight.completion.CompletionUtilCore
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.extapi.psi.ASTWrapperPsiElement
@@ -97,22 +98,13 @@ class LPsiRef(node: ASTNode): ASTWrapperPsiElement(node), PsiNameIdentifierOwner
             }
 
             override fun getVariants(): Array<Any> {
-                run {
-                    val parentExpr = element.parents(withSelf = false)
+                if (element.name == CompletionUtilCore.DUMMY_IDENTIFIER_TRIMMED) {
+                    val parent = element.parents(withSelf = false)
                         .lastOrNull { it.elementType in LElementType.EXPRESSION }
-
-                    val isolatedText = if (parentExpr != null) {
-                        "main() {x = ${parentExpr.text}}"
-                    } else {
-                        val parentStatement = element.parents(withSelf = true)
+                        ?: element.parents(withSelf = true)
                             .first { it.elementType in LElementType.STATEMENTS }
-                        "main() {${parentStatement.text}}"
-                    }
 
-                    if (PsiFileFactory.getInstance(project)
-                            .createFileFromText(LLanguage, isolatedText)
-                            .descendantsOfType<PsiErrorElement>()
-                            .any()) {
+                    if (parent.descendantsOfType<PsiErrorElement>().any()) {
                         return emptyArray()
                     }
                 }
